@@ -13,6 +13,7 @@
  */
 namespace FractalEntities\View;
 
+use Cake\Datasource\EntityInterface;
 use Cake\ORM\Query;
 use Cake\ORM\ResultSet;
 use Cake\Utility\Inflector;
