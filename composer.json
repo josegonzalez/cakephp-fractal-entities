@@ -3,6 +3,7 @@
     "description": "CakePHP View-layer wrapper for the Fractal library",
     "type": "cakephp-plugin",
     "homepage": "http://github.com/josegonzalez/cakephp-fractal-entities",
+    "license": "MIT",
     "require": {
         "cakephp/cakephp": "~3.0",
         "league/fractal": "^0.13.0@dev"
