@@ -121,7 +121,7 @@ class TransformerView extends View
         }
 
         if (!class_exists($transformerClass)) {
-            throw new Exception(sprintf('Invalid Trransformer class: %s', $transformerClass));
+            throw new Exception(sprintf('Invalid Transformer class: %s', $transformerClass));
         }
 
         $transformer = new $transformerClass;
