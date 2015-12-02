@@ -1,14 +1,15 @@
 {
-    "name": "josegonzalez/fractal-entities",
+    "name": "josegonzalez/cakephp-fractal-entities",
     "description": "CakePHP View-layer wrapper for the Fractal library",
     "type": "cakephp-plugin",
+    "keywords": ["cakephp", "api", "json", "rest"],
     "homepage": "http://github.com/josegonzalez/cakephp-fractal-entities",
     "license": "MIT",
-    "keywords": [
-        "cakephp",
-        "api",
-        "json",
-        "rest"
+    "authors": [
+        {
+            "name": "Jose Diaz-Gonzalez",
+            "email": "cakephp+fractal-entities@josediazgonzalez.com"
+        }
     ],
     "require": {
         "cakephp/cakephp": "~3.0",
