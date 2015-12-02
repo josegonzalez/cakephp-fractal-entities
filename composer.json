@@ -4,6 +4,12 @@
     "type": "cakephp-plugin",
     "homepage": "http://github.com/josegonzalez/cakephp-fractal-entities",
     "license": "MIT",
+    "keywords": [
+        "cakephp",
+        "api",
+        "json",
+        "rest"
+    ],
     "require": {
         "cakephp/cakephp": "~3.0",
         "league/fractal": "^0.13.0@dev"
