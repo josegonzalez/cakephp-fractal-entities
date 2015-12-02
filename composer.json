@@ -21,13 +21,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Josegonzalez\\FractalEntities\\": "src",
-            "Josegonzalez\\FractalEntities\\Test\\Fixture\\": "tests\\Fixture"
+            "FractalEntities\\": "src",
+            "FractalEntities\\Test\\Fixture\\": "tests\\Fixture"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Josegonzalez\\FractalEntities\\Test\\": "tests"
+            "FractalEntities\\Test\\": "tests"
         }
     }
 }

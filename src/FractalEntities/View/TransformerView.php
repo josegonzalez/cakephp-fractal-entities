@@ -11,7 +11,7 @@
  * @since     3.0.0
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
-namespace Josegonzalez\FractalEntities\View;
+namespace FractalEntities\View;
 
 use Cake\ORM\Query;
 use Cake\ORM\ResultSet;
