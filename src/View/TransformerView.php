@@ -10,6 +10,7 @@ use Exception;
 use League\Fractal;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\DataArraySerializer;
+use League\Fractal\Serializer\SerializerAbstract;
 use League\Fractal\TransformerAbstract;
 
 /**
@@ -69,9 +70,38 @@ class TransformerView extends View
             throw new Exception('Unserializable variable');
         }
 
-        $manager = new Manager();
-        $manager->setSerializer(new DataArraySerializer());
+        $serializer = $this->_serializer();
+        $manager = new Manager;
+        $manager->setSerializer(new $serializer());
         return json_encode($manager->createData($resource)->toArray());
+    }
+
+
+    /**
+     * Retrieves a configured serializer instance. Defaults to an instance of
+     * \League\Fractal\Serializer\DataArraySerializer
+     *
+     * You can configure this by setting either:
+     * - `_serializer`: An instance of SerializerAbstract
+     * - `_serializerClass`: A class that can be instantiated
+     *
+     * @return League\Fractal\Serializer\SerializerAbstract an instance of SerializerAbstract
+     */
+    protected function _serializer()
+    {
+        $serializer = $this->get('_serializer', null);
+        $serializerClass = $this->get('_serializerClass', null);
+        if ($serializer === null) {
+            if ($serializerClass === null) {
+                $serializer = new DataArraySerializer;
+            } else {
+                $serializer = new $serializerClass;
+            }
+        }
+        if (!($serializer instanceof SerializerAbstract)) {
+            throw new Exception(sprintf('Configured Serializer not instance of SerializerAbstract: %s', get_class($serializer)));
+        }
+        return $serializer;
     }
 
     /**
