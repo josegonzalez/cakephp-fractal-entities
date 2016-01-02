@@ -12,7 +12,7 @@ A thin wrapper around the CakePHP View layer to bring in Fractal support.
 ## Requirements
 
 * CakePHP 3.x
-* PHP 5.4+
+* PHP 5.5+
 * Patience
 
 ## Documentation
