@@ -77,10 +77,12 @@ class TransformerView extends SerializedView
         $serializerClass = $this->get('_serializerClass', null);
         if ($serializer === null) {
             if ($serializerClass === null) {
-                $serializer = new DataArraySerializer;
-            } else {
-                $serializer = new $serializerClass;
+                $serializerClass = '\League\Fractal\Serializer\DataArraySerializer';
             }
+            if (!class_exists($serializerClass)) {
+                throw new Exception(sprintf('Invalid Serializer class: %s', $serializerClass));
+            }
+            $serializer = new $serializerClass;
         }
         if (!($serializer instanceof SerializerAbstract)) {
             throw new Exception(sprintf('Configured Serializer not instance of SerializerAbstract: %s', get_class($serializer)));
