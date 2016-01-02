@@ -1,6 +1,7 @@
 <?php
 namespace FractalEntities\View;
 
+use Cake\Core\Configure;
 use Cake\Datasource\EntityInterface;
 use Cake\ORM\Query;
 use Cake\ORM\ResultSet;
@@ -126,8 +127,9 @@ class TransformerView extends View
 
         $transformerClass = $this->get('_transformerClass', null);
         if ($transformerClass === null) {
+            $namespace = Configure::read('App.namespace');
             $path = array_filter([
-                'App',
+                $namespace,
                 'Transformer',
                 $this->request->param('plugin'),
                 $this->request->param('prefix'),
