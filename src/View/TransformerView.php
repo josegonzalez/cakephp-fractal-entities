@@ -8,8 +8,9 @@ use Cake\ORM\ResultSet;
 use Cake\Utility\Inflector;
 use Cake\View\SerializedView;
 use Exception;
-use League\Fractal;
 use League\Fractal\Manager;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\DataArraySerializer;
 use League\Fractal\Serializer\SerializerAbstract;
 use League\Fractal\TransformerAbstract;
@@ -47,9 +48,9 @@ class TransformerView extends SerializedView
         $transformer = $this->_transformer();
         $_serialize = $this->get(array_pop($_serialize), null);
         if (is_array($_serialize) || $_serialize instanceof Query || $_serialize instanceof ResultSet) {
-            $resource = new Fractal\Resource\Collection($_serialize, $transformer);
+            $resource = new Collection($_serialize, $transformer);
         } elseif ($_serialize instanceof EntityInterface) {
-            $resource = new Fractal\Resource\Item($_serialize, $transformer);
+            $resource = new Item($_serialize, $transformer);
         } else {
             throw new Exception('Unserializable variable');
         }
