@@ -6,7 +6,7 @@ use Cake\Datasource\EntityInterface;
 use Cake\ORM\Query;
 use Cake\ORM\ResultSet;
 use Cake\Utility\Inflector;
-use Cake\View\View;
+use Cake\View\SerializedView;
 use Exception;
 use League\Fractal;
 use League\Fractal\Manager;
@@ -17,7 +17,7 @@ use League\Fractal\TransformerAbstract;
 /**
  * TransformerView class
  */
-class TransformerView extends View
+class TransformerView extends SerializedView
 {
     /**
      * Skip loading helpers if this is a _serialize based view.
@@ -30,23 +30,6 @@ class TransformerView extends View
             return;
         }
         parent::loadHelpers();
-    }
-
-    /**
-     * Render an api response
-     *
-     * @param string $view The view being rendered.
-     * @param string $layout The layout being rendered.
-     * @return string The rendered api response
-     */
-    public function render($view = null, $layout = null)
-    {
-        if (isset($this->viewVars['_serialize'])) {
-            return $this->_serialize();
-        }
-        if ($view !== false && $this->_getViewFileName($view)) {
-            return parent::render($view, false);
-        }
     }
 
     /**
