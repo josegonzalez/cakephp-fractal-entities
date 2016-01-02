@@ -226,14 +226,14 @@ class TransformerViewTest extends TestCase
         $this->protectedMethodCall($view, '_transformer');
     }
 
-/**
- * Call a protected method on an object
- *
- * @param Object $object object
- * @param string $name method to call
- * @param array $args arguments to pass to the method
- * @return mixed
- */
+    /**
+     * Call a protected method on an object
+     *
+     * @param Object $object object
+     * @param string $name method to call
+     * @param array $args arguments to pass to the method
+     * @return mixed
+     */
     public function protectedMethodCall($obj, $name, array $args = [])
     {
         $class = new \ReflectionClass($obj);
