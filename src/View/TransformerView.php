@@ -36,9 +36,10 @@ class TransformerView extends SerializedView
     /**
      * Serialize view vars.
      *
+     * @param array $serialize The data to serialize
      * @return string The serialized data
      */
-    protected function _serialize()
+    protected function _serialize($serialize)
     {
         $_serialize = (array)$this->get('_serialize', null);
         if (is_array($_serialize) && count($_serialize) > 1) {
