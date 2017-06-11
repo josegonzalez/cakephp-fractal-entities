@@ -11,6 +11,7 @@ class TestTransformer extends TransformerAbstract
         if (is_object($data) && $data instanceof EntityInterface) {
             return $data->toArray();
         }
+
         return $data;
     }
 }
