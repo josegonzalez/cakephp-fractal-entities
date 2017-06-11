@@ -62,7 +62,6 @@ class TransformerView extends SerializedView
         return json_encode($manager->createData($resource)->toArray());
     }
 
-
     /**
      * Retrieves a configured serializer instance. Defaults to an instance of
      * \League\Fractal\Serializer\DataArraySerializer
@@ -89,6 +88,7 @@ class TransformerView extends SerializedView
         if (!($serializer instanceof SerializerAbstract)) {
             throw new Exception(sprintf('Configured Serializer not instance of SerializerAbstract: %s', get_class($serializer)));
         }
+
         return $serializer;
     }
 
@@ -109,6 +109,7 @@ class TransformerView extends SerializedView
             if (!($transformer instanceof TransformerAbstract)) {
                 throw new Exception(sprintf('Configured Transformer not instance of TransformerAbstract: %s', get_class($transformer)));
             }
+
             return $transformer;
         }
 
@@ -136,6 +137,7 @@ class TransformerView extends SerializedView
         if (!($transformer instanceof TransformerAbstract)) {
             throw new Exception(sprintf('Transformer class not instance of TransformerAbstract: %s', $transformerClass));
         }
+
         return $transformer;
     }
 }
