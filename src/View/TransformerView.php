@@ -59,6 +59,7 @@ class TransformerView extends SerializedView
         $serializer = $this->_serializer();
         $manager = new Manager;
         $manager->setSerializer(new $serializer());
+
         return json_encode($manager->createData($resource)->toArray());
     }
 
