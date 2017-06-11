@@ -51,8 +51,8 @@ class TransformerViewTest extends TestCase
         $request = $this->getMockBuilder('\Cake\Network\Request')
             ->getMock();
         $request->expects($this->at(3))
-                    ->method('param')
-                    ->will($this->returnValue('Test'));
+            ->method('param')
+            ->will($this->returnValue('Test'));
 
         $view = new TransformerView($request);
         $view->set('data', [['key' => 'value']]);
@@ -77,8 +77,8 @@ class TransformerViewTest extends TestCase
         $request = $this->getMockBuilder('\Cake\Network\Request')
             ->getMock();
         $request->expects($this->at(3))
-                    ->method('param')
-                    ->will($this->returnValue('Test'));
+            ->method('param')
+            ->will($this->returnValue('Test'));
 
         $view = new TransformerView($request);
         $view->set('data', [['key' => 'value']]);
@@ -92,14 +92,14 @@ class TransformerViewTest extends TestCase
         $request = $this->getMockBuilder('\Cake\Network\Request')
             ->getMock();
         $request->expects($this->at(3))
-                    ->method('param')
-                    ->will($this->returnValue('Test'));
+            ->method('param')
+            ->will($this->returnValue('Test'));
 
         $entity = $this->getMockBuilder('\Cake\Datasource\EntityInterface')
             ->getMock();
         $entity->expects($this->once())
-                    ->method('toArray')
-                    ->will($this->returnValue(['key' => 'value']));
+            ->method('toArray')
+            ->will($this->returnValue(['key' => 'value']));
 
         $view = new TransformerView($request);
         $view->set('data', $entity);
@@ -117,8 +117,8 @@ class TransformerViewTest extends TestCase
         $request = $this->getMockBuilder('\Cake\Network\Request')
             ->getMock();
         $request->expects($this->at(3))
-                    ->method('param')
-                    ->will($this->returnValue('Test'));
+            ->method('param')
+            ->will($this->returnValue('Test'));
 
         $view = new TransformerView($request);
         $view->set('data', new stdClass);
@@ -200,8 +200,8 @@ class TransformerViewTest extends TestCase
     {
         $request = $this->getMockBuilder('\Cake\Network\Request')->getMock();
         $request->expects($this->at(3))
-                    ->method('param')
-                    ->will($this->returnValue('Test'));
+            ->method('param')
+            ->will($this->returnValue('Test'));
 
         $view = new TransformerView($request);
         $result = $this->protectedMethodCall($view, '_transformer');
@@ -218,7 +218,6 @@ class TransformerViewTest extends TestCase
         $this->protectedMethodCall($view, '_transformer');
     }
 
-
     /**
      * @expectedException Exception
      * @expectedExceptionMessage Transformer class not instance of TransformerAbstract: \FractalEntities\Test\App\Transformer\InvalidTransformer
@@ -228,8 +227,8 @@ class TransformerViewTest extends TestCase
         $request = $this->getMockBuilder('\Cake\Network\Request')
             ->getMock();
         $request->expects($this->at(3))
-                    ->method('param')
-                    ->will($this->returnValue('Invalid'));
+            ->method('param')
+            ->will($this->returnValue('Invalid'));
 
         $view = new TransformerView($request);
         $this->protectedMethodCall($view, '_transformer');
