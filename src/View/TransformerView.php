@@ -3,8 +3,8 @@ namespace FractalEntities\View;
 
 use Cake\Core\Configure;
 use Cake\Datasource\EntityInterface;
+use Cake\Datasource\ResultSetInterface;
 use Cake\ORM\Query;
-use Cake\ORM\ResultSet;
 use Cake\Utility\Inflector;
 use Cake\View\SerializedView;
 use Exception;
@@ -36,9 +36,10 @@ class TransformerView extends SerializedView
     /**
      * Serialize view vars.
      *
+     * @param array $serialize The data to serialize
      * @return string The serialized data
      */
-    protected function _serialize()
+    protected function _serialize($serialize)
     {
         $_serialize = (array)$this->get('_serialize', null);
         if (is_array($_serialize) && count($_serialize) > 1) {
@@ -47,7 +48,7 @@ class TransformerView extends SerializedView
 
         $transformer = $this->_transformer();
         $_serialize = $this->get(array_pop($_serialize), null);
-        if (is_array($_serialize) || $_serialize instanceof Query || $_serialize instanceof ResultSet) {
+        if (is_array($_serialize) || $_serialize instanceof Query || $_serialize instanceof ResultSetInterface) {
             $resource = new Collection($_serialize, $transformer);
         } elseif ($_serialize instanceof EntityInterface) {
             $resource = new Item($_serialize, $transformer);
@@ -58,9 +59,9 @@ class TransformerView extends SerializedView
         $serializer = $this->_serializer();
         $manager = new Manager;
         $manager->setSerializer(new $serializer());
+
         return json_encode($manager->createData($resource)->toArray());
     }
-
 
     /**
      * Retrieves a configured serializer instance. Defaults to an instance of
@@ -88,6 +89,7 @@ class TransformerView extends SerializedView
         if (!($serializer instanceof SerializerAbstract)) {
             throw new Exception(sprintf('Configured Serializer not instance of SerializerAbstract: %s', get_class($serializer)));
         }
+
         return $serializer;
     }
 
@@ -108,6 +110,7 @@ class TransformerView extends SerializedView
             if (!($transformer instanceof TransformerAbstract)) {
                 throw new Exception(sprintf('Configured Transformer not instance of TransformerAbstract: %s', get_class($transformer)));
             }
+
             return $transformer;
         }
 
@@ -135,6 +138,7 @@ class TransformerView extends SerializedView
         if (!($transformer instanceof TransformerAbstract)) {
             throw new Exception(sprintf('Transformer class not instance of TransformerAbstract: %s', $transformerClass));
         }
+
         return $transformer;
     }
 }

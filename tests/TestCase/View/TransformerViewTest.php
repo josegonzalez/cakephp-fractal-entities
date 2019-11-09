@@ -48,10 +48,11 @@ class TransformerViewTest extends TestCase
 
     public function testSerializeRender()
     {
-        $request = $this->getMock('\Cake\Network\Request');
+        $request = $this->getMockBuilder('\Cake\Network\Request')
+            ->getMock();
         $request->expects($this->at(3))
-                    ->method('param')
-                    ->will($this->returnValue('Test'));
+            ->method('param')
+            ->will($this->returnValue('Test'));
 
         $view = new TransformerView($request);
         $view->set('data', [['key' => 'value']]);
@@ -68,39 +69,42 @@ class TransformerViewTest extends TestCase
     {
         $view = new TransformerView;
         $view->set('_serialize', ['data', 'data']);
-        $this->protectedMethodCall($view, '_serialize');
+        $view->render();
     }
 
     public function testValidSerializeArray()
     {
-        $request = $this->getMock('\Cake\Network\Request');
+        $request = $this->getMockBuilder('\Cake\Network\Request')
+            ->getMock();
         $request->expects($this->at(3))
-                    ->method('param')
-                    ->will($this->returnValue('Test'));
+            ->method('param')
+            ->will($this->returnValue('Test'));
 
         $view = new TransformerView($request);
         $view->set('data', [['key' => 'value']]);
         $view->set('_serialize', 'data');
-        $result = $this->protectedMethodCall($view, '_serialize');
+        $result = $view->render();
         $this->assertEquals(json_encode(['data' => [['key' => 'value']]]), $result);
     }
 
     public function testValidSerializeEntity()
     {
-        $request = $this->getMock('\Cake\Network\Request');
+        $request = $this->getMockBuilder('\Cake\Network\Request')
+            ->getMock();
         $request->expects($this->at(3))
-                    ->method('param')
-                    ->will($this->returnValue('Test'));
+            ->method('param')
+            ->will($this->returnValue('Test'));
 
-        $entity = $this->getMock('\Cake\Datasource\EntityInterface');
+        $entity = $this->getMockBuilder('\Cake\Datasource\EntityInterface')
+            ->getMock();
         $entity->expects($this->once())
-                    ->method('toArray')
-                    ->will($this->returnValue(['key' => 'value']));
+            ->method('toArray')
+            ->will($this->returnValue(['key' => 'value']));
 
         $view = new TransformerView($request);
         $view->set('data', $entity);
         $view->set('_serialize', 'data');
-        $result = $this->protectedMethodCall($view, '_serialize');
+        $result = $view->render();
         $this->assertEquals(json_encode(['data' => ['key' => 'value']]), $result);
     }
 
@@ -110,20 +114,23 @@ class TransformerViewTest extends TestCase
      */
     public function testInvalidValidSerialize()
     {
-        $request = $this->getMock('\Cake\Network\Request');
+        $request = $this->getMockBuilder('\Cake\Network\Request')
+            ->getMock();
         $request->expects($this->at(3))
-                    ->method('param')
-                    ->will($this->returnValue('Test'));
+            ->method('param')
+            ->will($this->returnValue('Test'));
 
         $view = new TransformerView($request);
         $view->set('data', new stdClass);
         $view->set('_serialize', 'data');
-        $this->protectedMethodCall($view, '_serialize');
+        $view->render();
     }
+
     public function testValidSerializer()
     {
         $view = new TransformerView;
-        $view->set('_serializer', $this->getMock('\League\Fractal\Serializer\SerializerAbstract'));
+        $mock = $this->getMockBuilder('\League\Fractal\Serializer\SerializerAbstract')->getMock();
+        $view->set('_serializer', $mock);
         $result = $this->protectedMethodCall($view, '_serializer');
         $this->assertInstanceOf('\League\Fractal\Serializer\SerializerAbstract', $result);
     }
@@ -172,7 +179,8 @@ class TransformerViewTest extends TestCase
     public function testValidTransformer()
     {
         $view = new TransformerView;
-        $view->set('_transformer', $this->getMock('\League\Fractal\TransformerAbstract'));
+        $mock = $this->getMockBuilder('\League\Fractal\TransformerAbstract')->getMock();
+        $view->set('_transformer', $mock);
         $result = $this->protectedMethodCall($view, '_transformer');
         $this->assertInstanceOf('\League\Fractal\TransformerAbstract', $result);
     }
@@ -190,10 +198,10 @@ class TransformerViewTest extends TestCase
 
     public function testValidAutomaticTransformerClass()
     {
-        $request = $this->getMock('\Cake\Network\Request');
+        $request = $this->getMockBuilder('\Cake\Network\Request')->getMock();
         $request->expects($this->at(3))
-                    ->method('param')
-                    ->will($this->returnValue('Test'));
+            ->method('param')
+            ->will($this->returnValue('Test'));
 
         $view = new TransformerView($request);
         $result = $this->protectedMethodCall($view, '_transformer');
@@ -210,17 +218,17 @@ class TransformerViewTest extends TestCase
         $this->protectedMethodCall($view, '_transformer');
     }
 
-
     /**
      * @expectedException Exception
      * @expectedExceptionMessage Transformer class not instance of TransformerAbstract: \FractalEntities\Test\App\Transformer\InvalidTransformer
      */
     public function testInvalidAutomaticTransformerClass()
     {
-        $request = $this->getMock('\Cake\Network\Request');
+        $request = $this->getMockBuilder('\Cake\Network\Request')
+            ->getMock();
         $request->expects($this->at(3))
-                    ->method('param')
-                    ->will($this->returnValue('Invalid'));
+            ->method('param')
+            ->will($this->returnValue('Invalid'));
 
         $view = new TransformerView($request);
         $this->protectedMethodCall($view, '_transformer');
@@ -239,6 +247,7 @@ class TransformerViewTest extends TestCase
         $class = new \ReflectionClass($obj);
         $method = $class->getMethod($name);
         $method->setAccessible(true);
+
         return $method->invokeArgs($obj, $args);
     }
 }
